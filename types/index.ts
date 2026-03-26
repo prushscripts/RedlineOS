@@ -3,6 +3,7 @@ export interface Driver {
   name: string
   status: 'active' | 'inactive'
   truck_id: string | null
+  weeksActive?: number
   created_at?: string
 }
 
