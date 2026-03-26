@@ -24,7 +24,7 @@ export default function DashboardPage() {
   const progressPercent = calculateProgressTo1M(yearlyProjection)
   const remaining = calculateRemainingTo1M(yearlyProjection)
   
-  const weeklyRevenue = trucks.reduce((sum, truck) => sum + truck.weeklyRevenue, 0)
+  const weeklyRevenue = trucks.reduce((sum, truck) => sum + truck.weekly_revenue, 0)
   const totalMiles = 2847
   
   return (
