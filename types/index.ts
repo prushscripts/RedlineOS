@@ -2,19 +2,20 @@ export interface Driver {
   id: string
   name: string
   status: 'active' | 'inactive'
-  truckId: string
-  weeksActive: number
+  truck_id: string | null
+  created_at?: string
 }
 
 export interface Truck {
   id: string
   name: string
-  route: string
-  driverId: string
-  weeklyRevenue: number
-  fuelCost: number
-  otherCosts: number
+  route: string | null
+  driver_id: string | null
+  weekly_revenue: number
+  fuel_cost: number
+  other_costs: number
   status: 'active' | 'idle'
+  created_at?: string
 }
 
 export interface Phase {
@@ -22,27 +23,30 @@ export interface Phase {
   name: string
   revenueTarget: string
   unlockCondition: string
-  tasks: Task[]
+  tasks: PhaseTask[]
 }
 
-export interface Task {
+export interface PhaseTask {
   id: string
+  phase_id: number
   label: string
   completed: boolean
 }
 
 export interface WeeklySnapshot {
-  week: string
+  id: string
+  week_label: string
   revenue: number
   profit: number
+  recorded_at?: string
 }
 
 export interface Document {
   id: string
   name: string
   folder: 'insurance' | 'drivers' | 'vehicles' | 'payroll'
-  uploadedAt: string
-  type: 'PDF' | 'IMG' | 'DOC'
+  uploaded_at: string
+  file_type: 'PDF' | 'IMG' | 'DOC'
 }
 
 export interface Alert {
