@@ -74,7 +74,7 @@ export default function FinancialsPage() {
             {formatCurrency(remaining)}
           </h2>
           <p className="text-text-muted">
-            At this rate, you'll reach $1M in <span className="text-text-primary font-semibold">{yearsToGoal.toFixed(1)} years</span>
+            At this rate, you&apos;ll reach $1M in <span className="text-text-primary font-semibold">{yearsToGoal.toFixed(1)} years</span>
           </p>
           <p className="text-sm text-text-muted mt-2">
             Adding 1 more truck could reduce this to ~{(yearsToGoal * 0.67).toFixed(1)} years

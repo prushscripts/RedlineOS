@@ -15,8 +15,8 @@ set /p msg="Commit message (or press Enter for 'update'): "
 if "%msg%"=="" set msg=update
 git commit -m "%msg%"
 
-echo [3/3] Pushing to main...
-git push origin main
+echo [3/3] Pushing to master...
+git push origin master
 
 echo.
 echo  ✅ Done! Vercel will auto-deploy from main.

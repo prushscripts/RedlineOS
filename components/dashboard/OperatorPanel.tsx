@@ -43,7 +43,7 @@ export default function OperatorPanel({ drivers, trucks, weeklyRevenue, alerts }
         </div>
         
         <div>
-          <p className="text-sm text-text-muted mb-1">This Week's Revenue</p>
+          <p className="text-sm text-text-muted mb-1">This Week&apos;s Revenue</p>
           <p className="text-xl font-mono font-semibold text-text-primary">
             {formatCurrency(weeklyRevenue)}
           </p>
