@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Truck, TrendingUp, FileText, Map, Activity } from 'lucide-react'
+import { Home, Truck, TrendingUp, FileText, Map, Activity, Wallet, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Badge from './ui/Badge'
 
@@ -11,8 +11,11 @@ const navItems = [
   { href: '/fleet', label: 'Fleet', icon: Truck },
   { href: '/financials', label: 'Financials', icon: TrendingUp },
   { href: '/documents', label: 'Documents', icon: FileText },
+  { href: '/payroll', label: 'Payroll', icon: Wallet },
   { href: '/roadmap', label: 'Roadmap', icon: Map },
 ]
+
+const vaultItem = { href: '/vault', label: 'Private Vault', icon: Lock }
 
 export default function Sidebar() {
   const pathname = usePathname()
@@ -52,6 +55,24 @@ export default function Sidebar() {
             </Link>
           )
         })}
+        
+        <div className="my-4 border-t border-border-subtle" />
+        
+        <Link
+          href={vaultItem.href}
+          className={cn(
+            'flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 relative group',
+            pathname === vaultItem.href
+              ? 'bg-white/[0.06] text-text-primary' 
+              : 'text-text-muted hover:text-text-primary hover:bg-white/[0.03]'
+          )}
+        >
+          {pathname === vaultItem.href && (
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-accent rounded-r" />
+          )}
+          <vaultItem.icon size={20} />
+          <span className="font-medium">{vaultItem.label}</span>
+        </Link>
       </nav>
       
       <div className="p-4 border-t border-border-subtle">
