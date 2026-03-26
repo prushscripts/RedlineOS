@@ -23,8 +23,8 @@ export default function FinancialsPage() {
   const remaining = calculateRemainingTo1M(yearlyProjection)
   
   const yearsToGoal = remaining / yearlyProjection
-  const totalRevenue = trucks.reduce((sum, truck) => sum + truck.weeklyRevenue, 0)
-  const totalCosts = trucks.reduce((sum, truck) => sum + truck.fuelCost + truck.otherCosts, 0)
+  const totalRevenue = trucks.reduce((sum, truck) => sum + truck.weekly_revenue, 0)
+  const totalCosts = trucks.reduce((sum, truck) => sum + truck.fuel_cost + truck.other_costs, 0)
   
   return (
     <div className="space-y-8">
@@ -94,7 +94,7 @@ export default function FinancialsPage() {
               <div key={truck.id} className="flex items-center justify-between p-3 bg-bg-elevated rounded-lg">
                 <span className="text-sm text-text-muted">{truck.name}</span>
                 <span className="text-sm font-mono font-semibold text-text-primary">
-                  {formatCurrency(truck.weeklyRevenue)}
+                  {formatCurrency(truck.weekly_revenue)}
                 </span>
               </div>
             ))}
@@ -113,7 +113,7 @@ export default function FinancialsPage() {
           </h3>
           <div className="space-y-3">
             {trucks.map((truck) => {
-              const truckCosts = truck.fuelCost + truck.otherCosts
+              const truckCosts = truck.fuel_cost + truck.other_costs
               return (
                 <div key={truck.id} className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -125,11 +125,11 @@ export default function FinancialsPage() {
                   <div className="pl-4 space-y-1">
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-text-muted">Fuel</span>
-                      <span className="font-mono text-text-muted">{formatCurrency(truck.fuelCost)}</span>
+                      <span className="font-mono text-text-muted">{formatCurrency(truck.fuel_cost)}</span>
                     </div>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-text-muted">Other</span>
-                      <span className="font-mono text-text-muted">{formatCurrency(truck.otherCosts)}</span>
+                      <span className="font-mono text-text-muted">{formatCurrency(truck.other_costs)}</span>
                     </div>
                   </div>
                 </div>
