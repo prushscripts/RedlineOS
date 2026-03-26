@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronRight, Upload, Download, Trash2, FileText, Image, File } from 'lucide-react'
 import { getVaultDocumentsByFolder, uploadVaultFile, deleteVaultDocument, getVaultFileDownloadUrl } from '@/lib/vault'
@@ -16,16 +16,16 @@ export default function VaultFolder({ folderName, onUpdate }: VaultFolderProps) 
   const [documents, setDocuments] = useState<any[]>([])
   const [isUploading, setIsUploading] = useState(false)
 
+  const loadDocuments = useCallback(async () => {
+    const docs = await getVaultDocumentsByFolder(folderName)
+    setDocuments(docs)
+  }, [folderName])
+
   useEffect(() => {
     if (isExpanded) {
       loadDocuments()
     }
-  }, [isExpanded])
-
-  const loadDocuments = async () => {
-    const docs = await getVaultDocumentsByFolder(folderName)
-    setDocuments(docs)
-  }
+  }, [isExpanded, loadDocuments])
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files

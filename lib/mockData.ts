@@ -1,4 +1,4 @@
-import { Driver, Truck, WeeklySnapshot, Phase, Document, Alert } from '@/types'
+import { Driver, Truck, WeeklySnapshot, Phase, FleetDocument, Alert } from '@/types'
 
 export const drivers: Driver[] = [
   { 
@@ -119,7 +119,7 @@ export const phases: Phase[] = [
   },
 ]
 
-export const documents: Document[] = [
+export const documents: FleetDocument[] = [
   { id: 'DOC1', name: 'Commercial Auto Policy 2024.pdf', folder: 'insurance', uploadedAt: '2024-01-15', type: 'PDF' },
   { id: 'DOC2', name: 'Liability Coverage.pdf', folder: 'insurance', uploadedAt: '2024-01-15', type: 'PDF' },
   { id: 'DOC3', name: 'Joseph Pedro - CDL.pdf', folder: 'drivers', uploadedAt: '2024-02-01', type: 'PDF' },

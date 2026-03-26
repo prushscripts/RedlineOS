@@ -41,12 +41,13 @@ export interface WeeklySnapshot {
   recorded_at?: string
 }
 
-export interface Document {
+export interface FleetDocument {
   id: string
   name: string
   folder: 'insurance' | 'drivers' | 'vehicles' | 'payroll'
   uploaded_at: string
   file_type: 'PDF' | 'IMG' | 'DOC'
+  type?: 'PDF' | 'IMG' | 'DOC'
 }
 
 export interface Alert {

@@ -3,14 +3,14 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, FileText, Image as ImageIcon, File } from 'lucide-react'
-import { Document } from '@/types'
+import { FleetDocument } from '@/types'
 import Badge from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 
 interface FolderRowProps {
   title: string
   icon: React.ReactNode
-  documents: Document[]
+  documents: FleetDocument[]
 }
 
 export default function FolderRow({ title, icon, documents }: FolderRowProps) {
@@ -65,13 +65,13 @@ export default function FolderRow({ title, icon, documents }: FolderRowProps) {
                   className="flex items-center justify-between p-3 bg-bg-elevated rounded-lg hover:bg-bg-elevated/80 transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
-                    {getFileIcon(doc.type)}
+                    {getFileIcon(doc.type || doc.file_type)}
                     <div>
                       <p className="text-sm font-medium text-text-primary">{doc.name}</p>
-                      <p className="text-xs text-text-muted">Uploaded {doc.uploadedAt}</p>
+                      <p className="text-xs text-text-muted">Uploaded {doc.uploaded_at}</p>
                     </div>
                   </div>
-                  <Badge variant="default" className="text-xs">{doc.type}</Badge>
+                  <Badge variant="default" className="text-xs">{doc.type || doc.file_type}</Badge>
                 </motion.div>
               ))}
             </div>
