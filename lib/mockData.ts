@@ -23,9 +23,9 @@ export const trucks: Truck[] = [
     name: 'Truck 1', 
     route: 'Healey Route', 
     driverId: 'D1',
-    weeklyRevenue: 4800, 
-    fuelCost: 620, 
-    otherCosts: 380,
+    weeklyRevenue: 0, 
+    fuelCost: 0, 
+    otherCosts: 0,
     status: 'active'
   },
   { 
@@ -33,22 +33,22 @@ export const trucks: Truck[] = [
     name: 'Truck 2', 
     route: 'Healey Route', 
     driverId: 'D2',
-    weeklyRevenue: 4200, 
-    fuelCost: 580, 
-    otherCosts: 320,
+    weeklyRevenue: 0, 
+    fuelCost: 0, 
+    otherCosts: 0,
     status: 'active'
   },
 ]
 
 export const weeklyHistory: WeeklySnapshot[] = [
-  { week: 'W1', revenue: 8200, profit: 3100 },
-  { week: 'W2', revenue: 8600, profit: 3400 },
-  { week: 'W3', revenue: 8400, profit: 3200 },
-  { week: 'W4', revenue: 9200, profit: 3900 },
-  { week: 'W5', revenue: 8900, profit: 3600 },
-  { week: 'W6', revenue: 9500, profit: 4100 },
-  { week: 'W7', revenue: 9800, profit: 4300 },
-  { week: 'W8', revenue: 12000, profit: 7100 },
+  { week: 'W1', revenue: 0, profit: 0 },
+  { week: 'W2', revenue: 0, profit: 0 },
+  { week: 'W3', revenue: 0, profit: 0 },
+  { week: 'W4', revenue: 0, profit: 0 },
+  { week: 'W5', revenue: 0, profit: 0 },
+  { week: 'W6', revenue: 0, profit: 0 },
+  { week: 'W7', revenue: 0, profit: 0 },
+  { week: 'W8', revenue: 0, profit: 0 },
 ]
 
 export const phases: Phase[] = [
