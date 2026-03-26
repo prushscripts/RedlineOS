@@ -15,7 +15,7 @@ export default function DriverCard({ driver, truck }: DriverCardProps) {
   const [status, setStatus] = useState(driver.status)
   
   const toggleStatus = () => {
-    setStatus(prev => prev === 'active' ? 'inactive' : 'active')
+    setStatus((prev: 'active' | 'inactive') => prev === 'active' ? 'inactive' : 'active')
   }
   
   return (

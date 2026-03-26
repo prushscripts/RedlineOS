@@ -100,8 +100,7 @@ export default function VaultSetupPin({ onComplete }: VaultSetupPinProps) {
                 {pin.map((digit, index) => (
                   <input
                     key={index}
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    type="text"
+                    ref={(el) => { inputRefs.current[index] = el }}                    type="text"
                     inputMode="numeric"
                     maxLength={1}
                     value={digit}
@@ -122,7 +121,7 @@ export default function VaultSetupPin({ onComplete }: VaultSetupPinProps) {
                 {confirmPin.map((digit, index) => (
                   <input
                     key={index}
-                    ref={(el) => (confirmRefs.current[index] = el)}
+                    ref={(el) => { confirmRefs.current[index] = el }}
                     type="text"
                     inputMode="numeric"
                     maxLength={1}

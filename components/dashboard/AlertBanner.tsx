@@ -12,10 +12,10 @@ export default function AlertBanner({ alerts }: AlertBannerProps) {
   return (
     <div className="space-y-2">
       {alerts.map((alert) => {
-        const Icon = alert.type === 'danger' ? AlertCircle : alert.type === 'warning' ? AlertTriangle : Info
+        const Icon = alert.type === 'error' ? AlertCircle : alert.type === 'warning' ? AlertTriangle : Info
         
         const colors = {
-          danger: 'bg-danger/10 border-danger/20 text-danger',
+          error: 'bg-danger/10 border-danger/20 text-danger',
           warning: 'bg-warning/10 border-warning/20 text-warning',
           info: 'bg-blue-500/10 border-blue-500/20 text-blue-400'
         }

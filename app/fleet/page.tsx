@@ -34,7 +34,7 @@ export default function FleetPage() {
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {trucks.map((truck) => {
-            const driver = drivers.find(d => d.id === truck.driver_id)
+            const driver = drivers.find(d => d.id === truck.driverId)
             return (
               <TruckCard 
                 key={truck.id} 
@@ -53,7 +53,7 @@ export default function FleetPage() {
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {drivers.map((driver) => {
-            const truck = trucks.find(t => t.id === driver.truck_id)
+            const truck = trucks.find(t => t.id === driver.truckId)
             return (
               <DriverCard 
                 key={driver.id} 

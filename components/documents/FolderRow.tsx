@@ -65,13 +65,13 @@ export default function FolderRow({ title, icon, documents }: FolderRowProps) {
                   className="flex items-center justify-between p-3 bg-bg-elevated rounded-lg hover:bg-bg-elevated/80 transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
-                    {getFileIcon(doc.type || doc.file_type)}
+                    {getFileIcon(doc.type)}
                     <div>
                       <p className="text-sm font-medium text-text-primary">{doc.name}</p>
-                      <p className="text-xs text-text-muted">Uploaded {doc.uploaded_at}</p>
+                      <p className="text-xs text-text-muted">Uploaded {doc.uploadedAt}</p>
                     </div>
                   </div>
-                  <Badge variant="default" className="text-xs">{doc.type || doc.file_type}</Badge>
+                  <Badge variant="default" className="text-xs">{doc.type}</Badge>
                 </motion.div>
               ))}
             </div>

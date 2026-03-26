@@ -131,7 +131,7 @@ export const documents: FleetDocument[] = [
 ]
 
 export const alerts: Alert[] = [
-  { id: 'A1', type: 'danger', message: 'Truck 1 — fuel receipt missing' },
+  { id: 'A1', type: 'error', message: 'Truck 1 — fuel receipt missing' },
   { id: 'A2', type: 'warning', message: 'Insurance renewal due in 14 days' },
 ]
 

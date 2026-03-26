@@ -148,8 +148,7 @@ export default function PayHistoryTable({ payRecords, drivers, onUpdate }: PayHi
             if (drivers.length > 0) setSelectedDriver(drivers[0].id)
           }}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            tab === 'by-driver'
-              ? 'bg-accent text-white'
+            tab === ('by-driver' as string)              ? 'bg-accent text-white'
               : 'bg-bg-elevated text-text-muted hover:text-text-primary'
           }`}
         >
