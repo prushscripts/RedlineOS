@@ -5,12 +5,12 @@ import Badge from './ui/Badge'
 
 export default function TopBar() {
   return (
-    <header className="h-16 border-b border-border-subtle bg-bg-surface/50 backdrop-blur-md flex items-center justify-between px-8">
+    <header className="h-14 sm:h-16 border-b border-border-subtle bg-bg-surface/50 backdrop-blur-md flex items-center justify-between px-4 sm:px-6 lg:px-8">
       <div>
-        <h2 className="text-lg font-display font-semibold text-text-primary">
+        <h2 className="text-base sm:text-lg font-display font-semibold text-text-primary">
           Operator Dashboard
         </h2>
-        <p className="text-sm text-text-muted">
+        <p className="text-xs sm:text-sm text-text-muted hidden sm:block">
           {new Date().toLocaleDateString('en-US', { 
             weekday: 'long', 
             year: 'numeric', 

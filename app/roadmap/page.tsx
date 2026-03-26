@@ -51,17 +51,17 @@ export default function RoadmapPage() {
   const currentPhaseId = getCurrentPhase()
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Road to $1M
         </h1>
-        <p className="text-text-muted">
+        <p className="text-sm sm:text-base text-text-muted">
           Track your progress through each phase of growth
         </p>
       </div>
       
-      <div className="relative space-y-6">
+      <div className="relative space-y-4 sm:space-y-6">
         {phases.map((phase, index) => {
           const isUnlocked = isPhaseUnlocked(phase.id)
           const isCurrent = phase.id === currentPhaseId

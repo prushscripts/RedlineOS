@@ -27,17 +27,17 @@ export default function FinancialsPage() {
   const totalCosts = trucks.reduce((sum, truck) => sum + truck.fuelCost + truck.otherCosts, 0)
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Financial Overview
         </h1>
-        <p className="text-text-muted">
+        <p className="text-sm sm:text-base text-text-muted">
           Track your revenue, costs, and path to $1M
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
           title="Weekly Profit"
           value={weeklyProfit}

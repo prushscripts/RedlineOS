@@ -5,6 +5,7 @@ import StatCard from '@/components/dashboard/StatCard'
 import RoadTo1MBanner from '@/components/dashboard/RoadTo1MBanner'
 import OperatorPanel from '@/components/dashboard/OperatorPanel'
 import ProfitLineChart from '@/components/charts/ProfitLineChart'
+import DashboardWithLoading from '@/components/DashboardWithLoading'
 import { 
   trucks, 
   drivers, 
@@ -28,7 +29,8 @@ export default function DashboardPage() {
   const totalMiles = 2847
   
   return (
-    <div className="space-y-6">
+    <DashboardWithLoading>
+      <div className="space-y-4 sm:space-y-6">
       <RoadTo1MBanner
         weeklyProfit={weeklyProfit}
         monthlyProjection={monthlyProjection}
@@ -37,7 +39,7 @@ export default function DashboardPage() {
         remaining={remaining}
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard
           title="Weekly Revenue"
           value={weeklyRevenue}
@@ -69,7 +71,7 @@ export default function DashboardPage() {
         />
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2">
           <ProfitLineChart data={weeklyHistory} />
         </div>
@@ -83,5 +85,6 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+    </DashboardWithLoading>
   )
 }

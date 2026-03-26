@@ -32,36 +32,36 @@ export default function RoadTo1MBanner({
         
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <Target className="text-accent" size={32} />
-            <h2 className="text-2xl font-display font-bold text-text-primary">
+            <Target className="text-accent" size={24} />
+            <h2 className="text-xl sm:text-2xl font-display font-bold text-text-primary">
               Road to $1,000,000
             </h2>
           </div>
           
           <ProgressBar progress={progressPercent} className="mb-4" />
           
-          <div className="grid grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4">
             <div>
               <p className="text-xs text-text-muted mb-1">Weekly Profit</p>
-              <p className="text-lg font-mono font-semibold text-success">
+              <p className="text-base sm:text-lg font-mono font-semibold text-success">
                 {formatCurrency(weeklyProfit)}
               </p>
             </div>
             <div>
               <p className="text-xs text-text-muted mb-1">Monthly Est.</p>
-              <p className="text-lg font-mono font-semibold text-text-primary">
+              <p className="text-base sm:text-lg font-mono font-semibold text-text-primary">
                 {formatCurrency(monthlyProjection)}
               </p>
             </div>
             <div>
               <p className="text-xs text-text-muted mb-1">Yearly Est.</p>
-              <p className="text-lg font-mono font-semibold text-text-primary">
+              <p className="text-base sm:text-lg font-mono font-semibold text-text-primary">
                 {formatCurrency(yearlyProjection)}
               </p>
             </div>
             <div>
               <p className="text-xs text-text-muted mb-1">% to Goal</p>
-              <p className="text-lg font-mono font-semibold text-accent">
+              <p className="text-base sm:text-lg font-mono font-semibold text-accent">
                 {progressPercent.toFixed(1)}%
               </p>
             </div>

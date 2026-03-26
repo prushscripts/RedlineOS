@@ -10,17 +10,17 @@ export default function DocumentsPage() {
   const payrollDocs = documents.filter(d => d.folder === 'payroll')
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Document Vault
         </h1>
-        <p className="text-text-muted">
+        <p className="text-sm sm:text-base text-text-muted">
           Organize and access all your business documents
         </p>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         <div className="lg:col-span-2 space-y-4">
           <FolderRow
             title="Insurance"

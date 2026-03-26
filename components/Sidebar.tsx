@@ -21,7 +21,7 @@ export default function Sidebar() {
   const pathname = usePathname()
   
   return (
-    <aside className="fixed left-0 top-0 h-screen w-60 bg-bg-surface border-r border-border-subtle flex flex-col">
+    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-60 bg-bg-surface border-r border-border-subtle flex-col">
       <div className="p-6 border-b border-border-subtle">
         <div className="flex items-center gap-3">
           <Activity className="text-accent" size={28} strokeWidth={2.5} />

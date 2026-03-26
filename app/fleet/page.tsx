@@ -18,21 +18,21 @@ export default function FleetPage() {
   }
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Fleet Management
         </h1>
-        <p className="text-text-muted">
+        <p className="text-sm sm:text-base text-text-muted">
           Manage your trucks and drivers
         </p>
       </div>
       
       <div>
-        <h2 className="text-xl font-display font-semibold text-text-primary mb-4">
+        <h2 className="text-lg sm:text-xl font-display font-semibold text-text-primary mb-4">
           Trucks
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {trucks.map((truck) => {
             const driver = drivers.find(d => d.id === truck.driverId)
             return (
@@ -48,10 +48,10 @@ export default function FleetPage() {
       </div>
       
       <div>
-        <h2 className="text-xl font-display font-semibold text-text-primary mb-4">
+        <h2 className="text-lg sm:text-xl font-display font-semibold text-text-primary mb-4">
           Drivers
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {drivers.map((driver) => {
             const truck = trucks.find(t => t.id === driver.truckId)
             return (
