@@ -119,21 +119,9 @@ export const phases: Phase[] = [
   },
 ]
 
-export const documents: FleetDocument[] = [
-  { id: 'DOC1', name: 'Commercial Auto Policy 2024.pdf', folder: 'insurance', uploadedAt: '2024-01-15', type: 'PDF' },
-  { id: 'DOC2', name: 'Liability Coverage.pdf', folder: 'insurance', uploadedAt: '2024-01-15', type: 'PDF' },
-  { id: 'DOC3', name: 'Joseph Pedro - CDL.pdf', folder: 'drivers', uploadedAt: '2024-02-01', type: 'PDF' },
-  { id: 'DOC4', name: 'Mark Parra - CDL.pdf', folder: 'drivers', uploadedAt: '2024-02-10', type: 'PDF' },
-  { id: 'DOC5', name: 'Truck 1 - Registration.pdf', folder: 'vehicles', uploadedAt: '2024-01-20', type: 'PDF' },
-  { id: 'DOC6', name: 'Truck 2 - Registration.pdf', folder: 'vehicles', uploadedAt: '2024-01-22', type: 'PDF' },
-  { id: 'DOC7', name: 'January Payroll.pdf', folder: 'payroll', uploadedAt: '2024-02-01', type: 'PDF' },
-  { id: 'DOC8', name: 'February Payroll.pdf', folder: 'payroll', uploadedAt: '2024-03-01', type: 'PDF' },
-]
+export const documents: FleetDocument[] = []
 
-export const alerts: Alert[] = [
-  { id: 'A1', type: 'error', message: 'Truck 1 — fuel receipt missing' },
-  { id: 'A2', type: 'warning', message: 'Insurance renewal due in 14 days' },
-]
+export const alerts: Alert[] = []
 
 export function calculateWeeklyProfit(truckData: Truck[]): number {
   return truckData.reduce((sum, truck) => {

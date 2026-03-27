@@ -1,5 +1,27 @@
 -- Phase 4: Driver documents, payments, truck invoices, and truck notes
 
+-- MANUAL STEPS REQUIRED IN SUPABASE BEFORE DEPLOYING:
+-- 1. Run the weekly_checks table SQL below
+-- 2. Create storage bucket: vault-private (private, authenticated access only)
+-- 3. Create storage bucket: redlineos-docs (private, authenticated access only)
+-- 4. Set storage policies to allow authenticated users to upload/download/delete their own files
+
+-- Weekly checks table with new payment breakdown fields
+drop table if exists weekly_checks;
+create table weekly_checks (
+  id uuid default gen_random_uuid() primary key,
+  week_start date not null,
+  week_label text not null,
+  client text default 'Healey',
+  total_amount numeric not null,
+  driver_pay numeric default 0,
+  insurance numeric default 0,
+  fuel_expenses numeric default 0,
+  net_profit numeric generated always as (total_amount - driver_pay - insurance - fuel_expenses) stored,
+  notes text,
+  created_at timestamp default now()
+);
+
 -- Driver documents table
 create table driver_documents (
   id uuid default gen_random_uuid() primary key,

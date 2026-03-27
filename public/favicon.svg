@@ -1,12 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <rect width="32" height="32" rx="8" fill="#0A0A0F"/>
-  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
-  <path d="M6 22 L11 10 L16 18 L19 14 L26 14" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="26" cy="14" r="2.5" fill="#EF4444"/>
-  <defs>
-    <radialGradient id="bg" cx="80%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="#EF4444" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#0A0A0F" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#EF4444" stop-opacity="0.2"/>
+    <stop offset="100%" stop-color="#0A0A0F" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="32" height="32" rx="8" fill="url(#glow)"/>
+  <!-- Gauge arc base -->
+  <path d="M6 22 A12 12 0 0 1 26 22" stroke="#1E1E2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Redline zone arc -->
+  <path d="M21 11 A12 12 0 0 1 26 22" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Needle pointing to redline -->
+  <line x1="16" y1="22" x2="22" y2="10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Center pivot dot -->
+  <circle cx="16" cy="22" r="2" fill="#EF4444"/>
 </svg>
