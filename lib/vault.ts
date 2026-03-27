@@ -143,45 +143,43 @@ export async function uploadVaultFile(file: File, folder: string) {
     .from('vault-private')
     .upload(filePath, file)
   
-  if (uploadError) throw uploadError
+  if (uploadError) {
+    console.error('Storage upload error:', uploadError)
+    throw new Error('Upload failed — check that Supabase storage buckets are configured')
+  }
   
-  // Get public URL (will require auth to access)
-  const { data: { publicUrl } } = supabase.storage
-    .from('vault-private')
-    .getPublicUrl(filePath)
-  
-  // Insert document record
+  // Insert document record (store file path, not public URL)
   const { data, error } = await supabase
     .from('vault_documents')
     .insert({
       user_id: user.id,
       name: file.name,
       folder: folder,
-      file_url: publicUrl,
+      file_url: filePath,
       file_type: file.type
     })
     .select()
     .single()
   
-  if (error) throw error
+  if (error) {
+    console.error('Database insert error:', error)
+    throw new Error('File uploaded but failed to save record — contact support')
+  }
+  
   return data
 }
 
 /**
  * Delete vault document
  */
-export async function deleteVaultDocument(id: string, fileUrl: string) {
+export async function deleteVaultDocument(id: string, filePath: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Not authenticated')
   
-  // Extract file path from URL
-  const urlParts = fileUrl.split('/vault-private/')
-  if (urlParts.length > 1) {
-    const filePath = urlParts[1]
-    await supabase.storage
-      .from('vault-private')
-      .remove([filePath])
-  }
+  // Delete from storage
+  await supabase.storage
+    .from('vault-private')
+    .remove([filePath])
   
   // Delete database record
   const { error } = await supabase
@@ -196,12 +194,7 @@ export async function deleteVaultDocument(id: string, fileUrl: string) {
 /**
  * Get signed URL for downloading vault file
  */
-export async function getVaultFileDownloadUrl(fileUrl: string): Promise<string> {
-  const urlParts = fileUrl.split('/vault-private/')
-  if (urlParts.length < 2) throw new Error('Invalid file URL')
-  
-  const filePath = urlParts[1]
-  
+export async function getVaultFileDownloadUrl(filePath: string): Promise<string> {
   const { data, error } = await supabase.storage
     .from('vault-private')
     .createSignedUrl(filePath, 60) // 60 second expiry

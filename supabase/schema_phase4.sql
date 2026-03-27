@@ -1,10 +1,33 @@
 -- Phase 4: Driver documents, payments, truck invoices, and truck notes
 
--- MANUAL STEPS REQUIRED IN SUPABASE BEFORE DEPLOYING:
--- 1. Run the weekly_checks table SQL below
--- 2. Create storage bucket: vault-private (private, authenticated access only)
--- 3. Create storage bucket: redlineos-docs (private, authenticated access only)
--- 4. Set storage policies to allow authenticated users to upload/download/delete their own files
+-- ============================================
+-- MANUAL SUPABASE SETUP REQUIRED
+-- ============================================
+-- 1. Go to Supabase Dashboard → Storage
+-- 2. Create bucket named: vault-private
+--    - Toggle: Private (NOT public)
+--    - Click Create
+-- 3. Create bucket named: redlineos-docs  
+--    - Toggle: Private (NOT public)
+--    - Click Create
+-- 4. Go to Storage → Policies
+-- 5. For BOTH buckets add these policies:
+--
+--    Policy 1 - INSERT (upload):
+--    Name: "Users can upload their own files"
+--    Target: authenticated
+--    Expression: (auth.uid()::text = (storage.foldername(name))[1])
+--
+--    Policy 2 - SELECT (download/view):
+--    Name: "Users can view their own files"
+--    Target: authenticated  
+--    Expression: (auth.uid()::text = (storage.foldername(name))[1])
+--
+--    Policy 3 - DELETE:
+--    Name: "Users can delete their own files"
+--    Target: authenticated
+--    Expression: (auth.uid()::text = (storage.foldername(name))[1])
+-- ============================================
 
 -- Weekly checks table with new payment breakdown fields
 drop table if exists weekly_checks;
@@ -103,3 +126,9 @@ create policy "Authenticated users can view truck notes"
 create policy "Owner can manage truck notes"
   on truck_notes for all
   using (auth.email() = 'james@prushlogistics.com');
+
+-- Ensure vault_documents table has user_id column
+alter table vault_documents add column if not exists user_id uuid references auth.users(id);
+
+-- Ensure documents table has user_id column
+alter table documents add column if not exists user_id uuid references auth.users(id);
