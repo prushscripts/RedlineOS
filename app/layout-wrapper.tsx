@@ -14,11 +14,11 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   }
 
   return (
-    <div className="flex min-h-screen bg-bg-base">
+    <div className="flex min-h-screen bg-bg-base w-full max-w-full overflow-x-hidden">
       <Sidebar />
-      <main className="flex-1 lg:ml-60 pb-16 lg:pb-0">
+      <main className="flex-1 min-w-0 overflow-x-hidden lg:ml-60 pb-20 lg:pb-0">
         <TopBar />
-        <div className="p-4 sm:p-6 lg:p-8 max-w-full overflow-hidden">
+        <div className="p-4 sm:p-6 lg:p-8 w-full max-w-full overflow-x-hidden">
           {children}
         </div>
       </main>

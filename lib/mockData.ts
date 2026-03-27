@@ -5,22 +5,22 @@ export const drivers: Driver[] = [
     id: 'D1', 
     name: 'Joseph Pedro', 
     status: 'active', 
-    truckId: 'T1',
+    truckId: 'z455',
     weeksActive: 12
   },
   { 
     id: 'D2', 
     name: 'Mark Parra', 
     status: 'active', 
-    truckId: 'T2',
+    truckId: 'z420',
     weeksActive: 8
   },
 ]
 
 export const trucks: Truck[] = [
   { 
-    id: 'T1', 
-    name: 'Truck 1', 
+    id: 'z455', 
+    name: 'Truck z455', 
     route: 'Healey Route', 
     driverId: 'D1',
     weeklyRevenue: 0, 
@@ -29,8 +29,8 @@ export const trucks: Truck[] = [
     status: 'active'
   },
   { 
-    id: 'T2', 
-    name: 'Truck 2', 
+    id: 'z420', 
+    name: 'Truck z420', 
     route: 'Healey Route', 
     driverId: 'D2',
     weeklyRevenue: 0, 

@@ -27,7 +27,7 @@ export default function FinancialsPage() {
   const totalCosts = trucks.reduce((sum, truck) => sum + truck.fuelCost + truck.otherCosts, 0)
   
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+    <div className="w-full max-w-full overflow-x-hidden space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Financial Overview

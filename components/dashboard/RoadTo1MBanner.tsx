@@ -68,7 +68,7 @@ export default function RoadTo1MBanner({
           </div>
           
           <p className="text-sm text-text-muted">
-            You are <span className="text-text-primary font-semibold">{formatCurrency(remaining)}</span> away from $1,000,000
+            {remaining >= 1000000 ? 'Log your first check to begin tracking' : `You are ${formatCurrency(remaining)} away from $1,000,000`}
           </p>
         </div>
       </Card>

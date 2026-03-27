@@ -30,7 +30,7 @@ export default function DashboardPage() {
   
   return (
     <DashboardWithLoading>
-      <div className="space-y-4 sm:space-y-6">
+      <div className="w-full max-w-full overflow-x-hidden space-y-4 sm:space-y-6">
       <RoadTo1MBanner
         weeklyProfit={weeklyProfit}
         monthlyProjection={monthlyProjection}
@@ -45,7 +45,6 @@ export default function DashboardPage() {
           value={weeklyRevenue}
           icon={DollarSign}
           format="currency"
-          change={8.5}
           index={0}
         />
         <StatCard
@@ -53,7 +52,6 @@ export default function DashboardPage() {
           value={weeklyProfit}
           icon={TrendingUp}
           format="currency"
-          change={12.3}
           index={1}
         />
         <StatCard
@@ -66,7 +64,6 @@ export default function DashboardPage() {
           title="Miles This Week"
           value={totalMiles}
           icon={Navigation}
-          change={5.2}
           index={3}
         />
       </div>

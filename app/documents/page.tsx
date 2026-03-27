@@ -10,7 +10,7 @@ export default function DocumentsPage() {
   const payrollDocs = documents.filter(d => d.folder === 'payroll')
   
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+    <div className="w-full max-w-full overflow-x-hidden space-y-4 sm:space-y-6 lg:space-y-8">
       <div>
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-display font-bold text-text-primary mb-2">
           Document Vault

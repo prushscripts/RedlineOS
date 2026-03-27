@@ -30,26 +30,23 @@ export default function StatCard({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.3 }}
+      className="w-full overflow-hidden"
     >
       <Card hover>
         <div className="flex items-start justify-between">
           <div>
             <p className="text-sm text-text-muted mb-1">{title}</p>
             <motion.h3 
-              className="text-3xl font-display font-bold text-text-primary tabular-nums"
+              className="text-2xl sm:text-3xl font-display font-bold text-text-primary tabular-nums"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.08 + 0.2, duration: 0.6 }}
             >
               {formattedValue}
             </motion.h3>
-            {change !== undefined && (
-              <div className="mt-2">
-                <Badge variant={change >= 0 ? 'success' : 'danger'}>
-                  {change >= 0 ? '+' : ''}{change.toFixed(1)}%
-                </Badge>
-              </div>
-            )}
+            <div className="mt-2 text-sm text-text-muted">
+              —
+            </div>
           </div>
           <div className="p-3 bg-accent/10 rounded-lg">
             <Icon className="text-accent" size={24} />
