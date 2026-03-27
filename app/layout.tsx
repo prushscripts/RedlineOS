@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: 'RedlineOS — Road to $1,000,000',
   description: 'Operator command center for fleet logistics. Track profit, manage drivers, and map your road to $1M.',
   metadataBase: new URL('https://redlineos.space'),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/favicon-32.png',
+  },
   openGraph: {
     title: 'RedlineOS — Road to $1,000,000',
     description: 'Operator command center for fleet logistics. Track profit, manage drivers, and map your road to $1M.',
@@ -14,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'RedlineOS',
     images: [
       {
-        url: '/opengraph-image',
+        url: 'https://redlineos.space/og-image.png',
         width: 1200,
         height: 630,
         alt: 'RedlineOS — Road to $1,000,000',
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'RedlineOS — Road to $1,000,000',
     description: 'Operator command center for fleet logistics. Track profit, manage drivers, and map your road to $1M.',
-    images: ['/opengraph-image'],
+    images: ['https://redlineos.space/og-image.png'],
   },
 }
 
@@ -38,9 +45,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overflow-x-hidden">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <body className="overflow-x-hidden bg-[#080810]">
         <VaultProvider>
           <LayoutWrapper>
