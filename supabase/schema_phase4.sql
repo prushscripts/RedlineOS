@@ -132,3 +132,6 @@ alter table vault_documents add column if not exists user_id uuid references aut
 
 -- Ensure documents table has user_id column
 alter table documents add column if not exists user_id uuid references auth.users(id);
+
+-- Add AI allocation column to weekly_checks for storing calculator results
+alter table weekly_checks add column if not exists ai_allocation jsonb;

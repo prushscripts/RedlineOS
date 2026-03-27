@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Truck, TrendingUp, FileText, Map, Activity, Wallet, Lock } from 'lucide-react'
+import { Home, Truck, TrendingUp, Sparkles, FileText, Map, Activity, Wallet, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Badge from './ui/Badge'
 
@@ -10,6 +10,7 @@ const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
   { href: '/fleet', label: 'Fleet', icon: Truck },
   { href: '/financials', label: 'Financials', icon: TrendingUp },
+  { href: '/calculator', label: 'AI Calculator', icon: Sparkles },
   { href: '/documents', label: 'Documents', icon: FileText },
   { href: '/payroll', label: 'Payroll', icon: Wallet },
   { href: '/roadmap', label: 'Roadmap', icon: Map },
