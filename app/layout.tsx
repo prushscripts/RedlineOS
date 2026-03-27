@@ -38,6 +38,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="overflow-x-hidden">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className="overflow-x-hidden bg-[#080810]">
         <VaultProvider>
           <LayoutWrapper>
