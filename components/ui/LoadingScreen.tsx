@@ -15,10 +15,10 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
   useEffect(() => {
     const timer1 = setTimeout(() => setPhase(2), 600)
-    const timer2 = setTimeout(() => setPhase(3), 1600)
+    const timer2 = setTimeout(() => setPhase(3), 2200)
     const timer3 = setTimeout(() => {
       onComplete()
-    }, 2500)
+    }, 2800)
 
     return () => {
       clearTimeout(timer1)
@@ -29,16 +29,17 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
   useEffect(() => {
     if (phase === 2) {
-      let index = 0
-      const typeInterval = setInterval(() => {
-        if (index <= fullText.length) {
-          setTypedText(fullText.slice(0, index))
-          index++
+      let i = 0
+      const target = "SYSTEM ONLINE"
+      const interval = setInterval(() => {
+        if (i < target.length) {
+          setTypedText(target.slice(0, i + 1))
+          i++
         } else {
-          clearInterval(typeInterval)
+          clearInterval(interval)
         }
       }, 80)
-      return () => clearInterval(typeInterval)
+      return () => clearInterval(interval)
     }
   }, [phase])
 
