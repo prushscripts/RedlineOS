@@ -46,7 +46,8 @@ export default function RegisterPage() {
     setIsLoading(true)
     try {
       await signUp(email, password)
-      router.push('/dashboard')
+      // Redirect to login page after successful registration
+      router.push('/login')
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred')
     } finally {
@@ -210,7 +211,7 @@ export default function RegisterPage() {
                     className="w-full h-12 bg-accent hover:bg-[#DC2626] text-white font-display font-bold text-sm tracking-wider rounded-lg transition-all disabled:opacity-50"
                     style={{ boxShadow: '0 0 24px rgba(239,68,68,0.35)' }}
                   >
-                    {isLoading ? 'Creating account...' : 'Launch RedlineOS →'}
+                    {isLoading ? 'Creating account...' : 'Create Account'}
                   </motion.button>
                 </form>
               </motion.div>
