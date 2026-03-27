@@ -45,9 +45,19 @@ export default function RegisterPage() {
 
     setIsLoading(true)
     try {
-      await signUp(email, password)
-      // Redirect to login page after successful registration
-      router.push('/login')
+      const { data, error } = await signUp(email, password)
+      if (error) {
+        setError(error.message)
+        return
+      }
+      if (data?.session) {
+        router.push('/dashboard')
+        return
+      }
+      if (data?.user && !data?.session) {
+        setError('Check your email to confirm your account before logging in.')
+        return
+      }
     } catch (err: any) {
       setError(err.message || 'An unexpected error occurred')
     } finally {
