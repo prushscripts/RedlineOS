@@ -175,12 +175,12 @@ This Week's Advice: ${result.weeklyAdvice}
   }
 
   return (
-    <div className="w-full max-w-full overflow-x-hidden space-y-6">
+    <div className="w-full max-w-full overflow-x-hidden space-y-6 px-4 sm:px-6 lg:px-0 pb-24 lg:pb-0">
       <div>
-        <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
+        <h1 className="text-2xl sm:text-3xl font-display font-bold text-text-primary mb-2">
           AI Money Calculator
         </h1>
-        <p className="text-text-muted">
+        <p className="text-sm sm:text-base text-text-muted">
           Enter your weekly payment and get an instant allocation breakdown.
         </p>
       </div>
@@ -196,21 +196,21 @@ This Week's Advice: ${result.weeklyAdvice}
               value={grossPayment || ''}
               onChange={(e) => setGrossPayment(parseFloat(e.target.value) || 0)}
               placeholder="$0.00"
-              className="w-full px-6 py-4 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary text-4xl font-display font-bold text-center focus:outline-none focus:border-accent transition-colors"
+              className="w-full px-6 py-4 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary text-3xl sm:text-4xl font-display font-bold text-center focus:outline-none focus:border-accent transition-colors"
             />
           </div>
 
           {/* Fixed Expenses */}
           <div>
             <h3 className="text-sm font-semibold text-text-primary mb-3">Fixed Expenses</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <label className="text-xs text-text-muted mb-1.5 block">Joseph Pedro Pay</label>
                 <input
                   type="number"
                   value={josephPay || ''}
                   onChange={(e) => setJosephPay(parseFloat(e.target.value) || 0)}
-                  className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+                  className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
                 />
               </div>
               <div>
@@ -219,7 +219,7 @@ This Week's Advice: ${result.weeklyAdvice}
                   type="number"
                   value={markPay || ''}
                   onChange={(e) => setMarkPay(parseFloat(e.target.value) || 0)}
-                  className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+                  className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
                 />
               </div>
             </div>
@@ -235,7 +235,7 @@ This Week's Advice: ${result.weeklyAdvice}
               type="number"
               value={insurance || ''}
               onChange={(e) => setInsurance(parseFloat(e.target.value) || 0)}
-              className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+              className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
             />
           </div>
 
@@ -255,7 +255,7 @@ This Week's Advice: ${result.weeklyAdvice}
 
           {/* Real-time Preview */}
           <div className="p-4 bg-bg-elevated border border-border-subtle rounded-lg">
-            <div className="space-y-2 text-sm font-mono">
+            <div className="space-y-2 text-xs sm:text-sm font-mono">
               <div className="flex justify-between">
                 <span className="text-text-muted">Gross Payment:</span>
                 <span className="text-text-primary">{formatCurrency(grossPayment)}</span>
@@ -287,7 +287,7 @@ This Week's Advice: ${result.weeklyAdvice}
           <button
             onClick={handleCalculate}
             disabled={isCalculating || !useAI}
-            className="w-full py-4 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-semibold rounded-lg transition-colors text-lg"
+            className="w-full py-4 min-h-[52px] bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-semibold rounded-lg transition-colors text-lg"
           >
             {isCalculating ? 'Calculating...' : 'Calculate'}
           </button>
@@ -341,8 +341,8 @@ This Week's Advice: ${result.weeklyAdvice}
             className="space-y-6"
           >
             {/* Header */}
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-display font-bold text-text-primary">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-xl sm:text-2xl font-display font-bold text-text-primary">
                 Your Allocation for {weekLabel}
               </h2>
               <div className="w-6 h-6 bg-success rounded-full flex items-center justify-center">
@@ -350,9 +350,9 @@ This Week's Advice: ${result.weeklyAdvice}
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left - Allocation Breakdown */}
-              <Card>
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6">
+              {/* Allocation Breakdown - First on mobile */}
+              <Card className="order-1">
                 <h3 className="text-lg font-semibold text-text-primary mb-4">Breakdown</h3>
                 <div className="space-y-3">
                   {result.allocations.map((allocation, index) => (
@@ -371,10 +371,10 @@ This Week's Advice: ${result.weeklyAdvice}
                       onMouseLeave={() => setHighlightedCategory(null)}
                     >
                       <div className="flex justify-between items-center mb-2">
-                        <span className="font-semibold text-text-primary text-sm">
+                        <span className="font-semibold text-text-primary text-xs sm:text-sm">
                           {allocation.category}
                         </span>
-                        <span className="font-mono font-bold text-lg" style={{ color: allocation.color }}>
+                        <span className="font-mono font-bold text-base sm:text-lg" style={{ color: allocation.color }}>
                           {formatCurrency(allocation.amount)}
                         </span>
                       </div>
@@ -397,8 +397,8 @@ This Week's Advice: ${result.weeklyAdvice}
                   
                   <div className="border-t border-border-subtle pt-3 mt-3">
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-text-muted">TOTAL ALLOCATED</span>
-                      <span className="font-mono font-bold text-xl text-success">
+                      <span className="font-semibold text-text-muted text-xs sm:text-sm">TOTAL ALLOCATED</span>
+                      <span className="font-mono font-bold text-lg sm:text-xl text-success">
                         {formatCurrency(result.totalAllocated)}
                       </span>
                     </div>
@@ -406,10 +406,10 @@ This Week's Advice: ${result.weeklyAdvice}
                 </div>
               </Card>
 
-              {/* Right - Pie Chart */}
-              <Card>
+              {/* Pie Chart - Second on mobile */}
+              <Card className="order-2">
                 <h3 className="text-lg font-semibold text-text-primary mb-4">Visual Breakdown</h3>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={200} className="sm:!h-[300px]">
                   <PieChart>
                     <Pie
                       data={result.allocations}
@@ -417,7 +417,8 @@ This Week's Advice: ${result.weeklyAdvice}
                       nameKey="category"
                       cx="50%"
                       cy="50%"
-                      outerRadius={100}
+                      outerRadius={80}
+                      className="sm:!outerRadius-[100]"
                       label={(entry) => `${entry.percentage.toFixed(0)}%`}
                     >
                       {result.allocations.map((allocation, index) => (
@@ -437,8 +438,9 @@ This Week's Advice: ${result.weeklyAdvice}
                       }}
                     />
                     <Legend
-                      wrapperStyle={{ fontSize: '12px' }}
+                      wrapperStyle={{ fontSize: '10px' }}
                       iconType="circle"
+                      className="sm:!text-xs"
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -448,12 +450,12 @@ This Week's Advice: ${result.weeklyAdvice}
             {/* AI Advice */}
             <Card className="bg-accent/5 border-accent/20">
               <div className="flex items-start gap-3">
-                <Sparkles size={20} className="text-accent mt-1" />
+                <Sparkles size={20} className="text-accent mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="text-xs font-semibold text-accent uppercase tracking-wider mb-2">
                     This Week's Advice
                   </h4>
-                  <p className="text-text-primary italic">
+                  <p className="text-sm text-text-primary italic">
                     {result.weeklyAdvice}
                   </p>
                 </div>
@@ -461,27 +463,27 @@ This Week's Advice: ${result.weeklyAdvice}
             </Card>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3 sm:gap-4">
               <button
                 onClick={handleSaveToWeeklyPayment}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-success hover:bg-success/90 text-white font-semibold rounded-lg transition-colors"
+                className="flex items-center justify-center gap-2 px-6 py-3 min-h-[48px] bg-success hover:bg-success/90 text-white font-semibold rounded-lg transition-colors"
               >
                 <Save size={18} />
-                Save to This Week's Payment
+                <span className="text-sm sm:text-base">Save to This Week's Payment</span>
               </button>
               <button
                 onClick={handleCopySummary}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-bg-elevated hover:bg-bg-elevated/80 border border-border-subtle text-text-primary font-semibold rounded-lg transition-colors"
+                className="flex items-center justify-center gap-2 px-6 py-3 min-h-[48px] bg-bg-elevated hover:bg-bg-elevated/80 border border-border-subtle text-text-primary font-semibold rounded-lg transition-colors"
               >
                 <Copy size={18} />
-                Copy Summary
+                <span className="text-sm sm:text-base">Copy Summary</span>
               </button>
               <button
                 onClick={handleRecalculate}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-bg-elevated hover:bg-bg-elevated/80 border border-border-subtle text-text-primary font-semibold rounded-lg transition-colors"
+                className="flex items-center justify-center gap-2 px-6 py-3 min-h-[48px] bg-bg-elevated hover:bg-bg-elevated/80 border border-border-subtle text-text-primary font-semibold rounded-lg transition-colors"
               >
                 <RefreshCw size={18} />
-                Recalculate
+                <span className="text-sm sm:text-base">Recalculate</span>
               </button>
             </div>
           </motion.div>
@@ -510,14 +512,14 @@ This Week's Advice: ${result.weeklyAdvice}
                 Set default values that will pre-fill the calculator every time you visit this page.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="text-xs text-text-muted mb-1.5 block">Joseph Pedro Weekly Pay</label>
                   <input
                     type="number"
                     value={josephPay || ''}
                     onChange={(e) => setJosephPay(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
                   />
                 </div>
                 <div>
@@ -526,7 +528,7 @@ This Week's Advice: ${result.weeklyAdvice}
                     type="number"
                     value={markPay || ''}
                     onChange={(e) => setMarkPay(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
                   />
                 </div>
                 <div>
@@ -535,14 +537,14 @@ This Week's Advice: ${result.weeklyAdvice}
                     type="number"
                     value={insurance || ''}
                     onChange={(e) => setInsurance(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
+                    className="w-full px-4 py-3 sm:py-2.5 bg-bg-elevated border border-border-subtle rounded-lg text-text-primary font-mono focus:outline-none focus:border-accent transition-colors"
                   />
                 </div>
               </div>
               
               <button
                 onClick={saveDefaults}
-                className="px-6 py-2 bg-accent hover:bg-accent/90 text-white font-semibold rounded-lg transition-colors"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2 bg-accent hover:bg-accent/90 text-white font-semibold rounded-lg transition-colors"
               >
                 Save Defaults
               </button>
