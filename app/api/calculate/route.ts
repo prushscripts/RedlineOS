@@ -40,10 +40,10 @@ Give James a specific dollar-amount allocation for the remaining $${remainingAmo
 Rules:
 - All amounts must add up to exactly $${remainingAmount}
 - Be specific with dollar amounts, no ranges
-- Prioritize tax reserve (set aside ~25-30% of net profit for taxes)
+- CRITICAL TAX RULE - DO NOT DEVIATE: Always set aside exactly 30% of the remaining amount for taxes. This operator has a W2 job earning ~$57k/year AND this business income stacked on top. This means business profit is taxed at a higher marginal rate. He owes: federal self-employment tax (15.3%) + federal income tax at elevated bracket due to W2 stacking + NY state income tax (~6.5%). 30% is the minimum safe reserve. Never recommend below 30% for taxes under any circumstances. If 30% feels high, the weekly advice should reassure him that vehicle deductions, fuel, insurance, maintenance, and depreciation will reduce the actual tax bill at year end — but the reserve should stay at 30% until he files.
 - Recommend at least 10-15% for maintenance reserve since trucks need upkeep
 - Give James a realistic personal take-home
-- Add one short sentence of advice for this week based on the numbers
+- Add one short sentence of advice for this week based on the numbers. If mentioning taxes, remind James that his W2 income stacks with business profit meaning his effective rate is higher than a typical sole operator, and that 30% is conservative on purpose — deductions for fuel, insurance, vehicle depreciation and maintenance will lower the actual bill at tax time.
 
 Respond ONLY with a valid JSON object in this exact format, no other text:
 {
