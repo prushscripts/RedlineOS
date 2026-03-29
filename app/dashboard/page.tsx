@@ -94,6 +94,27 @@ export default function DashboardPage() {
     setIsPaymentModalOpen(true)
   }
 
+  const handleDeletePayment = async (payment: WeeklyPayment) => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+
+    await supabase
+      .from('weekly_checks')
+      .delete()
+      .eq('id', payment.id)
+    
+    await fetchWeeklyPayments()
+    
+    // Show toast notification
+    const toast = document.createElement('div')
+    toast.className = 'fixed top-4 right-4 bg-accent text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in'
+    toast.textContent = 'Entry deleted'
+    document.body.appendChild(toast)
+    setTimeout(() => {
+      toast.remove()
+    }, 3000)
+  }
+
   // Calculate stats from weekly_checks
   const mostRecentPayment = weeklyPayments[0]
   const weeklyProfit = mostRecentPayment 
@@ -166,6 +187,7 @@ export default function DashboardPage() {
           <WeeklyPaymentCard 
             payment={mostRecentPayment}
             onEdit={() => handleEditPayment(mostRecentPayment)}
+            onDelete={() => handleDeletePayment(mostRecentPayment)}
           />
         ) : (
           <Card className="text-center py-8">

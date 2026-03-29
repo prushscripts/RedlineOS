@@ -24,12 +24,12 @@ export default function Sidebar() {
   return (
     <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-60 bg-bg-surface border-r border-border-subtle flex-col">
       <div className="p-6 border-b border-border-subtle">
-        <div className="flex items-center gap-3">
+        <Link href="/dashboard" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
           <Activity className="text-accent" size={28} strokeWidth={2.5} />
           <h1 className="text-2xl font-display font-bold text-text-primary">
             RedlineOS
           </h1>
-        </div>
+        </Link>
       </div>
       
       <nav className="flex-1 p-4 space-y-1">

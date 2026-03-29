@@ -1,26 +1,116 @@
 'use client'
 
-import { DollarSign, TrendingUp, Target, Calendar } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { DollarSign, TrendingUp, Target, Calendar, Edit, Trash2, Plus } from 'lucide-react'
 import StatCard from '@/components/dashboard/StatCard'
 import Card from '@/components/ui/Card'
 import ProfitLineChart from '@/components/charts/ProfitLineChart'
-import { 
-  trucks, 
-  weeklyHistory,
-  calculateWeeklyProfit,
-  calculateMonthlyProjection,
-  calculateYearlyProjection,
-  calculateProgressTo1M,
-  calculateRemainingTo1M
-} from '@/lib/mockData'
+import WeeklyPaymentModal, { WeeklyPayment } from '@/components/dashboard/WeeklyPaymentModal'
+import { trucks } from '@/lib/mockData'
 import { formatCurrency } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
 
 export default function FinancialsPage() {
-  const weeklyProfit = calculateWeeklyProfit(trucks)
-  const monthlyProjection = calculateMonthlyProjection(weeklyProfit)
-  const yearlyProjection = calculateYearlyProjection(weeklyProfit)
-  const progressPercent = calculateProgressTo1M(yearlyProjection)
-  const remaining = calculateRemainingTo1M(yearlyProjection)
+  const [weeklyPayments, setWeeklyPayments] = useState<WeeklyPayment[]>([])
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [editingPayment, setEditingPayment] = useState<WeeklyPayment | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchWeeklyPayments()
+  }, [])
+
+  const fetchWeeklyPayments = async () => {
+    const { data, error } = await supabase
+      .from('weekly_checks')
+      .select('*')
+      .order('week_start', { ascending: false })
+    
+    if (data && !error) {
+      const payments: WeeklyPayment[] = data.map(d => ({
+        id: d.id,
+        weekStart: d.week_start,
+        weekLabel: d.week_label,
+        client: d.client,
+        totalAmount: d.total_amount,
+        driverPay: d.driver_pay,
+        insurance: d.insurance,
+        fuelExpenses: d.fuel_expenses,
+        notes: d.notes || ''
+      }))
+      setWeeklyPayments(payments)
+    }
+  }
+
+  const handleSavePayment = async (payment: WeeklyPayment) => {
+    if (payment.id) {
+      await supabase
+        .from('weekly_checks')
+        .update({
+          week_start: payment.weekStart,
+          week_label: payment.weekLabel,
+          client: payment.client,
+          total_amount: payment.totalAmount,
+          driver_pay: payment.driverPay,
+          insurance: payment.insurance,
+          fuel_expenses: payment.fuelExpenses,
+          notes: payment.notes
+        })
+        .eq('id', payment.id)
+    } else {
+      await supabase
+        .from('weekly_checks')
+        .insert({
+          week_start: payment.weekStart,
+          week_label: payment.weekLabel,
+          client: payment.client,
+          total_amount: payment.totalAmount,
+          driver_pay: payment.driverPay,
+          insurance: payment.insurance,
+          fuel_expenses: payment.fuelExpenses,
+          notes: payment.notes
+        })
+    }
+    
+    fetchWeeklyPayments()
+    setEditingPayment(null)
+  }
+
+  const handleDeletePayment = async (paymentId: string) => {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+
+    await supabase
+      .from('weekly_checks')
+      .delete()
+      .eq('id', paymentId)
+    
+    await fetchWeeklyPayments()
+    setDeletingId(null)
+    
+    // Show toast
+    const toast = document.createElement('div')
+    toast.className = 'fixed top-4 right-4 bg-accent text-white px-6 py-3 rounded-lg shadow-lg z-50'
+    toast.textContent = 'Entry deleted'
+    document.body.appendChild(toast)
+    setTimeout(() => toast.remove(), 3000)
+  }
+
+  // Calculate stats from weekly_checks
+  const mostRecentPayment = weeklyPayments[0]
+  const weeklyProfit = mostRecentPayment 
+    ? mostRecentPayment.totalAmount - mostRecentPayment.driverPay - mostRecentPayment.insurance - mostRecentPayment.fuelExpenses
+    : 0
+  
+  const last4Weeks = weeklyPayments.slice(0, 4)
+  const avgWeeklyProfit = last4Weeks.length > 0
+    ? last4Weeks.reduce((sum, p) => sum + (p.totalAmount - p.driverPay - p.insurance - p.fuelExpenses), 0) / last4Weeks.length
+    : 0
+  
+  const monthlyProjection = avgWeeklyProfit * 4.33
+  const yearlyProjection = avgWeeklyProfit * 52
+  const progressPercent = (yearlyProjection / 1000000) * 100
+  const remaining = 1000000 - yearlyProjection
   
   const yearsToGoal = remaining / yearlyProjection
   const totalRevenue = trucks.reduce((sum, truck) => sum + truck.weeklyRevenue, 0)
@@ -82,7 +172,104 @@ export default function FinancialsPage() {
         </div>
       </Card>
       
-      <ProfitLineChart data={weeklyHistory} />
+      <ProfitLineChart data={weeklyPayments.slice(0, 8).reverse().map((p, i) => ({
+        week: `W${i + 1}`,
+        revenue: p.totalAmount,
+        profit: p.totalAmount - p.driverPay - p.insurance - p.fuelExpenses
+      }))} />
+      
+      {/* Check History Table */}
+      <Card>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-display font-semibold text-text-primary">
+            Check History
+          </h3>
+          <button
+            onClick={() => {
+              setEditingPayment(null)
+              setIsPaymentModalOpen(true)
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-accent hover:bg-accent/90 text-white font-semibold rounded-lg transition-colors text-sm"
+          >
+            <Plus size={16} />
+            New Payment
+          </button>
+        </div>
+        
+        {weeklyPayments.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border-subtle">
+                  <th className="text-left py-3 px-4 text-xs font-semibold text-text-muted uppercase">Week</th>
+                  <th className="text-left py-3 px-4 text-xs font-semibold text-text-muted uppercase">Client</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Total</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Driver Pay</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Insurance</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Fuel</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Net Profit</th>
+                  <th className="text-right py-3 px-4 text-xs font-semibold text-text-muted uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {weeklyPayments.map((payment) => {
+                  const netProfit = payment.totalAmount - payment.driverPay - payment.insurance - payment.fuelExpenses
+                  return (
+                    <tr key={payment.id} className="border-b border-border-subtle hover:bg-bg-elevated transition-colors">
+                      <td className="py-3 px-4 text-sm text-text-primary">{payment.weekLabel}</td>
+                      <td className="py-3 px-4 text-sm text-text-muted">{payment.client}</td>
+                      <td className="py-3 px-4 text-sm text-text-primary text-right font-mono">{formatCurrency(payment.totalAmount)}</td>
+                      <td className="py-3 px-4 text-sm text-text-muted text-right font-mono">{formatCurrency(payment.driverPay)}</td>
+                      <td className="py-3 px-4 text-sm text-text-muted text-right font-mono">{formatCurrency(payment.insurance)}</td>
+                      <td className="py-3 px-4 text-sm text-text-muted text-right font-mono">{formatCurrency(payment.fuelExpenses)}</td>
+                      <td className="py-3 px-4 text-sm text-success text-right font-mono font-semibold">{formatCurrency(netProfit)}</td>
+                      <td className="py-3 px-4">
+                        {deletingId === payment.id ? (
+                          <div className="flex items-center justify-end gap-2">
+                            <span className="text-xs text-text-muted">Delete?</span>
+                            <button
+                              onClick={() => handleDeletePayment(payment.id!)}
+                              className="px-2 py-1 text-xs bg-accent hover:bg-accent/90 text-white rounded transition-colors"
+                            >
+                              Yes
+                            </button>
+                            <button
+                              onClick={() => setDeletingId(null)}
+                              className="px-2 py-1 text-xs bg-bg-elevated hover:bg-bg-elevated/80 text-text-muted rounded transition-colors"
+                            >
+                              No
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-end gap-2">
+                            <button
+                              onClick={() => {
+                                setEditingPayment(payment)
+                                setIsPaymentModalOpen(true)
+                              }}
+                              className="p-1.5 hover:bg-white/5 rounded transition-colors"
+                            >
+                              <Edit size={14} className="text-text-muted" />
+                            </button>
+                            <button
+                              onClick={() => setDeletingId(payment.id!)}
+                              className="p-1.5 hover:bg-white/5 rounded transition-colors group"
+                            >
+                              <Trash2 size={14} className="text-slate-500 group-hover:text-accent transition-colors" />
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-center text-text-muted py-8">No payment history yet. Click "New Payment" to add your first entry.</p>
+        )}
+      </Card>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
@@ -150,6 +337,16 @@ export default function FinancialsPage() {
           </div>
         </Card>
       </div>
+      
+      <WeeklyPaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => {
+          setIsPaymentModalOpen(false)
+          setEditingPayment(null)
+        }}
+        onSave={handleSavePayment}
+        editData={editingPayment}
+      />
     </div>
   )
 }

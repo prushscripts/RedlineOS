@@ -22,10 +22,8 @@ export default function VaultFolder({ folderName, onUpdate }: VaultFolderProps) 
   }, [folderName])
 
   useEffect(() => {
-    if (isExpanded) {
-      loadDocuments()
-    }
-  }, [isExpanded, loadDocuments])
+    loadDocuments()
+  }, [loadDocuments])
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
